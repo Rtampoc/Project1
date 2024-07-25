@@ -31,15 +31,21 @@ namespace Project1.Controllers
             return View();
         }
 
-        public ActionResult Login(int ID)
+        public ActionResult Login()
         {
-            var item = mod.Find(ID);
+            
             return View();
         }
         [HttpPost]
-        public ActionResult Login(Users m)
+        public ActionResult Login(Models.Users m)
         {
-            mod.uLog(m);
+            if (ModelState.IsValid)
+            {
+                if ()
+                {
+
+                }
+            }
             return RedirectToAction("Users");
         }
 
