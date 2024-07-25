@@ -60,13 +60,22 @@ namespace Project1.Models
             });
         }
 
-        public void ULog(Users obj)
+        public void uLog(Users obj)
         {
-            s.Query("SELECT uname, pword FROM tbl_proj_user WHERE uname = @uname AND pword = @pword", p => {
+
+            s.Update("tbl_proj_user", obj.ID, p =>
+            {
                 p.Add("uname", obj.uname);
                 p.Add("pword", obj.pword);
+                
             });
         }
+        public Users Find(int ID)
+        {
+            return s.Query<Users>("SELECT * FROM tbl_proj_user WHERE ID = @ID", p => p.Add("@ID", ID)).SingleOrDefault();
+        }
+
+
 
 
 

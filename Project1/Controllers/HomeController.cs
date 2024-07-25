@@ -31,11 +31,16 @@ namespace Project1.Controllers
             return View();
         }
 
+        public ActionResult Login(int ID)
+        {
+            var item = mod.Find(ID);
+            return View();
+        }
+        [HttpPost]
         public ActionResult Login(Users m)
         {
-                   
-            
-            return View();
+            mod.uLog(m);
+            return RedirectToAction("Users");
         }
 
         public ActionResult Register()
@@ -57,7 +62,7 @@ namespace Project1.Controllers
         {
             
             
-            return View();
+            return RedirectToAction("Users");
         }
 
 
