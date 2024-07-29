@@ -13,6 +13,8 @@ namespace Project1.Controllers
     public class HomeController : Controller
     {
         Users mod = new Users();
+        dbController dbCon = new dbController();
+
         public ActionResult Index()
         {
             return View();
@@ -32,10 +34,7 @@ namespace Project1.Controllers
             return View();
         }
 
-        public ActionResult Login()
-
-
-
+        public ActionResult Login()            
         {
             
             return View();
@@ -43,11 +42,21 @@ namespace Project1.Controllers
         [HttpPost]
         public ActionResult Login(Users m)
         {
+            ModelState.Clear();//clear other modelstate
             if (ModelState.IsValid)
             {
-                
+                var user = new Users();
+                if (user.uLog(m.uname, m.pword))
+                {
+                    
+                    return RedirectToAction("Users");
+                }
+                else
+                {
+                    
+                }
             }
-            return RedirectToAction("Users");
+            return View(m);
         }
 
         public ActionResult Register()
@@ -58,10 +67,11 @@ namespace Project1.Controllers
         public ActionResult Register(Users m)
         {
             if(ModelState.IsValid == false)
-            {
+            {                
                 return View(m);
             }
             mod.Register(m);
+                       
             return RedirectToAction("Login");
         }
 
@@ -69,7 +79,7 @@ namespace Project1.Controllers
         {
             
             
-            return RedirectToAction("Users");
+            return View();
         }
 
 

@@ -44,7 +44,7 @@ namespace Project1.Models
 
         public System.DateTime dateCreated { get; set; }
 
-        public System.DateTime lastLogin { get; set; }
+        public System.DateTime lastLog { get; set; }
         public int contact { get; set; }
 
         public void Register(Users obj)
@@ -57,8 +57,8 @@ namespace Project1.Models
                 p.Add("lname", obj.lname);
                 p.Add("bday", obj.bday);
                 p.Add("email", obj.email);
-                p.Add("dateCreated", obj.dateCreated);
-                p.Add("lastLogin", obj.lastLogin);
+                //p.Add("dateCreated", obj.dateCreated);
+                //p.Add("lastLog", obj.lastLog);
             });
         }
 
@@ -71,7 +71,7 @@ namespace Project1.Models
              }).SingleOrDefault();
 
             bool result = false;
-            //functions
+            //function
             if (usr != null)
             {
                 result = true;

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using AAJControl;
 using System.Configuration;
+using Project1.Models;
+using System.Reflection.Emit;
 
 namespace Project1.Classes
 {
@@ -14,7 +16,6 @@ namespace Project1.Classes
 
         }
 
-        
-
+        public object UserAccounts { get; internal set; }
     }
 }
