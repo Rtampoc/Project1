@@ -5,6 +5,7 @@ using System.Web;
 using AAJControl;
 using Project1.Classes;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 
 namespace Project1.Models
 {
@@ -30,6 +31,7 @@ namespace Project1.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         [DataType(DataType.Date)]
         public DateTime bday { get; set; }
+
         [Display(Name = "Email")]
         [Required]
         [DataType(DataType.EmailAddress)]
@@ -62,8 +64,20 @@ namespace Project1.Models
 
         public bool uLog(string uname, string pword)
         {
+            
+             Users usr = s.Query<Users>("SELECT uname, pword FROM tbl_proj_user WHERE uname = @uname AND pword = @pword", p => {
+                 p.Add("@uname", uname);
+                 p.Add("@pword", pword);
+             }).SingleOrDefault();
 
-            return s.Query<Users>("SELECT uname, pword FROM tbl_proj_user WHERE uname = @uname AND pword = @pword", p => p.Add("@uname", uname));
+            bool result = false;
+            //functions
+            if (usr != null)
+            {
+                result = true;
+            }
+            return result;
+
         }
         public Users Find(int ID)
         {
