@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Project1.Models.Users>
+@{
+    ViewBag.Title = "data";
+}
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Contact Holder</th>
+                <th>Network</th>
+                <th>Contact No.</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.cholder</td>
+                    <td>@item.network</td>
+                    <td>@item.contact</td>                    
+                    <td>
+                        <a href="@Url.Action("Edit", "Home", new { ID = item.ID })" class="btn btn-primary">Edit</a>
+                        <a href="@Url.Action("Delete", "Home", new { ID = item.ID })" class="btn btn-primary">Delete</a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+

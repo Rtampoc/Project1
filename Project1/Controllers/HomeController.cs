@@ -13,7 +13,9 @@ namespace Project1.Controllers
     public class HomeController : Controller
     {
         Users mod = new Users();
-        dbController dbCon = new dbController();
+
+
+
 
         public ActionResult Index()
         {
@@ -34,9 +36,9 @@ namespace Project1.Controllers
             return View();
         }
 
+        //LOGIN
         public ActionResult Login()            
-        {
-            
+        {            
             return View();
         }
         [HttpPost]
@@ -47,18 +49,16 @@ namespace Project1.Controllers
             {
                 var user = new Users();
                 if (user.uLog(m.uname, m.pword))
-                {
-                    
+                {                   
                     return RedirectToAction("Users");
-                }
-                else
-                {
-                    
-                }
+                }                
             }
+            ModelState.AddModelError("", "Incorrect Username or Password");
             return View(m);
         }
 
+
+        //REGISTER
         public ActionResult Register()
         {
             return View();
@@ -69,18 +69,69 @@ namespace Project1.Controllers
             if(ModelState.IsValid == false)
             {                
                 return View(m);
-            }
-            mod.Register(m);
-                       
+            }            
+            mod.Register(m);            
             return RedirectToAction("Login");
         }
 
-        public ActionResult Users(Users m)
+        //CONTACT LIST
+        [HttpGet]
+        public ActionResult Users()
+        {                        
+            return View(mod.List());
+        }
+
+        //PARTIAL VIEW "DATA"
+        public PartialViewResult data(string Search)
         {
-            
-            
+            var item = mod.List(Search);
+            return PartialView(item);
+        }
+
+
+        //CREATE
+        public ActionResult Create()
+        {
             return View();
         }
+        [HttpPost]
+        public ActionResult Create(Users m)
+        {
+            m.newCon(m);
+            return RedirectToAction("Users");
+        }
+
+
+        //EDIT
+        public ActionResult Edit(int ID)
+        {
+            var item = mod.Find(ID);
+            return View(item);
+        }
+        [HttpPost]
+        public ActionResult Edit(Users m)
+        {
+            mod.Update(m);
+            return RedirectToAction("Users");
+        }
+
+
+        //DELETE
+        public ActionResult Delete(int ID)
+        {
+            var item = mod.Find(ID);
+            return View(item);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(Users m)
+        {
+            mod.Delete(m);         
+            return RedirectToAction("Users");
+        }
+
+
+
 
 
     }

@@ -16,6 +16,5 @@ namespace Project1.Classes
 
         }
 
-        public object UserAccounts { get; internal set; }
     }
 }
