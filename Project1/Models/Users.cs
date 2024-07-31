@@ -15,10 +15,10 @@ namespace Project1.Models
     {
         dbController s = new dbController();
 
-       public int ID { get; set; }
+        public int ID { get; set; }
 
         [Display(Name = "Username")]
-        [Required] 
+        [Required]
         public string uname { get; set; }
 
         [Display(Name = "Password")]
@@ -43,27 +43,12 @@ namespace Project1.Models
         [Required]
         [DataType(DataType.EmailAddress)]
         public string email { get; set; }
-
-        [Display(Name ="Contact Holder")]
-        public string cholder { get; set; }
-
-        [Display(Name = "Network")]
-        public string network { get; set; }
-
-        [Display(Name = "Contact No.")]
-        [Required]
-        [DataType(DataType.PhoneNumber)]
-        public string contact { get; set; }
-
-        public DateTime dateCreated { get; set; }
-
-
+        
 
         public List<Users> List()
         {
-            return s.Query<Users>("SELECT * FROM tbl_proj_mobile");
+            return s.Query<Users>("SELECT * FROM tbl_proj_user");
         }
-
 
         public void Register(Users obj)//For Registration
         {
@@ -81,11 +66,11 @@ namespace Project1.Models
 
         public bool uLog(string uname, string pword)//For user login
         {
-            
-             Users usr = s.Query<Users>("SELECT uname, pword FROM tbl_proj_user WHERE uname = @uname AND pword = @pword", p => {
-                 p.Add("@uname", uname);
-                 p.Add("@pword", pword);
-             }).SingleOrDefault();
+            Users usr = s.Query<Users>("SELECT uname, pword FROM tbl_proj_user WHERE uname = @uname AND pword = @pword", p =>
+            {
+                p.Add("@uname", uname);
+                p.Add("@pword", pword);
+            }).SingleOrDefault();
 
             bool result = false;
             //function
@@ -96,47 +81,15 @@ namespace Project1.Models
             return result;
 
         }
-        
-        public List<Users> List(string Search)
+
+        public List<Users> List(string Search)//For Search
         {
             return s.Query<Users>("SELECT * FROM tbl_proj_mobile WHERE CONCAT(cholder,network) LIKE @search", p => p.Add("@search", $"%{ Search }%"));
         }
 
-        public void newCon(Users obj)//For Create new contact
-        {
-            s.InsertNormal("tbl_proj_mobile", p =>
-            {
-                p.Add("cholder", obj.cholder);
-                p.Add("network", obj.network);
-                p.Add("contact", obj.contact);
-            });
-        }
-
-        public Users Find(int ID)
-        {
-            return s.Query<Users>("SELECT * FROM tbl_proj_mobile WHERE ID = @ID", p => p.Add("@ID", ID)).SingleOrDefault();
-        }
-
-        public void Update(Users obj)//For Update
-        {
-            s.Update("tbl_proj_mobile", obj.ID, p =>
-            {
-                p.Add("cholder", obj.cholder);
-                p.Add("network", obj.network);
-                p.Add("contact", obj.contact);
-            });
-        }
-
-        public void Delete(Users obj)//For Delete
-        {
-            s.Query("DELETE FROM tbl_proj_mobile WHERE id = @id", p =>
-            {
-                p.Add("@ID", obj.ID);
-            });
-        }
-
-
-
+         
+         
+               
 
     }
 }

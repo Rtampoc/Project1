@@ -13,11 +13,8 @@ namespace Project1.Controllers
     public class HomeController : Controller
     {
         Users mod = new Users();
-
-
-
-
-        public ActionResult Index()
+                
+        /*public ActionResult Index()
         {
             return View();
         }
@@ -34,7 +31,7 @@ namespace Project1.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
-        }
+        }*/
 
         //LOGIN
         public ActionResult Login()            
@@ -63,15 +60,16 @@ namespace Project1.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Register(Users m)
         {
-            if(ModelState.IsValid == false)
-            {                
-                return View(m);
-            }            
-            mod.Register(m);            
-            return RedirectToAction("Login");
+            if (ModelState.IsValid)
+            {
+                mod.Register(m);
+                return RedirectToAction("Login");
+            }                           
+            return View();
         }
 
         //CONTACT LIST
@@ -84,54 +82,12 @@ namespace Project1.Controllers
         //PARTIAL VIEW "DATA"
         public PartialViewResult data(string Search)
         {
-            var item = mod.List(Search);
+            var item = mod2.List(Search);
             return PartialView(item);
         }
 
 
-        //CREATE
-        public ActionResult Create()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult Create(Users m)
-        {
-            m.newCon(m);
-            return RedirectToAction("Users");
-        }
-
-
-        //EDIT
-        public ActionResult Edit(int ID)
-        {
-            var item = mod.Find(ID);
-            return View(item);
-        }
-        [HttpPost]
-        public ActionResult Edit(Users m)
-        {
-            mod.Update(m);
-            return RedirectToAction("Users");
-        }
-
-
-        //DELETE
-        public ActionResult Delete(int ID)
-        {
-            var item = mod.Find(ID);
-            return View(item);
-        }
-
-        [HttpPost]
-        public ActionResult Delete(Users m)
-        {
-            mod.Delete(m);         
-            return RedirectToAction("Users");
-        }
-
-
-
+        
 
 
     }
