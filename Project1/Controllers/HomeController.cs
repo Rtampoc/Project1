@@ -47,7 +47,7 @@ namespace Project1.Controllers
                 var user = new Users();
                 if (user.uLog(m.uname, m.pword))
                 {                   
-                    return RedirectToAction("Users");
+                    return RedirectToAction("index");
                 }                
             }
             ModelState.AddModelError("", "Incorrect Username or Password");
@@ -82,7 +82,7 @@ namespace Project1.Controllers
         //PARTIAL VIEW "DATA"
         public PartialViewResult data(string Search)
         {
-            var item = mod2.List(Search);
+            var item = mod.List(Search);
             return PartialView(item);
         }
 

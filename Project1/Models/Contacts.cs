@@ -23,7 +23,15 @@ namespace Project1.Models
         [Required]
         public string contact { get; set; }
 
+        public List<Contacts> List()
+        {
+            return s.Query<Contacts>("SELECT * FROM tbl_proj_mobile");
+        }
 
+        public List<Contacts> List(string Search)//For Search
+        {
+            return s.Query<Contacts>("SELECT * FROM tbl_proj_mobile WHERE CONCAT(cholder,network) LIKE @search", p => p.Add("@search", $"%{ Search }%"));
+        }
 
         public void newCon(Contacts obj)//For Create new contact
         {
@@ -55,15 +63,9 @@ namespace Project1.Models
             return s.Query<Contacts>("SELECT * FROM tbl_proj_mobile WHERE ID = @ID", p => p.Add("@ID", ID)).SingleOrDefault();
         }
 
-        public List<Contacts> List(string Search)//For Search
-        {
-            return s.Query<Contacts>("SELECT * FROM tbl_proj_mobile WHERE CONCAT(cholder,network) LIKE @search", p => p.Add("@search", $"%{ Search }%"));
-        }
+        
 
-        public List<Contacts> List()
-        {
-            return s.Query<Contacts>("SELECT * FROM tbl_proj_mobile");
-        }
+
     }
 
 }

@@ -12,9 +12,16 @@ namespace Project1.Controllers
         Contacts mod = new Contacts();
 
         // GET: Contact
-        public ActionResult Index()
+
+        public ActionResult index()
         {
             return View();
+        }
+        [HttpPost]
+        public ActionResult Index(Contacts m)
+        {
+            var item = mod.List(m);
+            return View(item);
         }
 
         //CREATE

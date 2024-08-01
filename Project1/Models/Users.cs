@@ -50,6 +50,11 @@ namespace Project1.Models
             return s.Query<Users>("SELECT * FROM tbl_proj_user");
         }
 
+        public List<Users> List(string Search)//For Search
+        {
+            return s.Query<Users>("SELECT * FROM tbl_proj_mobile WHERE CONCAT(cholder,network) LIKE @search", p => p.Add("@search", $"%{ Search }%"));
+        }
+
         public void Register(Users obj)//For Registration
         {
             s.InsertNormal("tbl_proj_user", p =>
@@ -64,6 +69,8 @@ namespace Project1.Models
             });
         }
 
+
+        
         public bool uLog(string uname, string pword)//For user login
         {
             Users usr = s.Query<Users>("SELECT uname, pword FROM tbl_proj_user WHERE uname = @uname AND pword = @pword", p =>
@@ -82,10 +89,7 @@ namespace Project1.Models
 
         }
 
-        public List<Users> List(string Search)//For Search
-        {
-            return s.Query<Users>("SELECT * FROM tbl_proj_mobile WHERE CONCAT(cholder,network) LIKE @search", p => p.Add("@search", $"%{ Search }%"));
-        }
+        
 
          
          

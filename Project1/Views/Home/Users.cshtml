@@ -6,11 +6,11 @@
 <h2>User Contacts</h2>
 <div class="row">
     <div class="col">
-        <a href="@Url.Action("Create", "Home") " class="btn btn-primary">New Record</a>
+        <a href="@Url.Action("Create", "Users") " class="btn btn-primary">New Record</a>
     </div>
 
     <div class="col">
-        @using (Ajax.BeginForm("data", "Home", new AjaxOptions { OnSuccess = "success" }))
+        @using (Ajax.BeginForm("data", "Users", new AjaxOptions { OnSuccess = "success" }))
         {
             <div class="row">
                 <div class="col">
