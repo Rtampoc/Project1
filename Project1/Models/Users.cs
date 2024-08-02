@@ -52,7 +52,7 @@ namespace Project1.Models
 
         public List<Users> List(string Search)//For Search
         {
-            return s.Query<Users>("SELECT * FROM tbl_proj_mobile WHERE CONCAT(cholder,network) LIKE @search", p => p.Add("@search", $"%{ Search }%"));
+            return s.Query<Users>("SELECT * FROM tbl_proj_mobile WHERE CONCAT(fname,lname) LIKE @search", p => p.Add("@search", $"%{ Search }%"));
         }
 
         public void Register(Users obj)//For Registration

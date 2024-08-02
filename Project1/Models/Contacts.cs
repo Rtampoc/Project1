@@ -11,7 +11,7 @@ namespace Project1.Models
     {
         dbController s = new dbController();
 
-        public int ID { get; private set; }
+        public int ID { get; set; }
                 
         [Display(Name = "Contact Holder")]
         public string cholder { get; set; }
@@ -31,6 +31,11 @@ namespace Project1.Models
         public List<Contacts> List(string Search)//For Search
         {
             return s.Query<Contacts>("SELECT * FROM tbl_proj_mobile WHERE CONCAT(cholder,network) LIKE @search", p => p.Add("@search", $"%{ Search }%"));
+        }
+
+        public Contacts Find(int ID)
+        {
+            return s.Query<Contacts>("SELECT * FROM tbl_proj_mobile WHERE ID = @ID", p => p.Add("@ID", ID)).SingleOrDefault();
         }
 
         public void newCon(Contacts obj)//For Create new contact
@@ -57,13 +62,7 @@ namespace Project1.Models
         {
             s.Query("DELETE FROM tbl_proj_mobile WHERE id = @id", p => { p.Add("@ID", obj.ID); });
         }
-
-        public Contacts Find(int ID)
-        {
-            return s.Query<Contacts>("SELECT * FROM tbl_proj_mobile WHERE ID = @ID", p => p.Add("@ID", ID)).SingleOrDefault();
-        }
-
-        
+             
 
 
     }

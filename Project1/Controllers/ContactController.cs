@@ -16,13 +16,7 @@ namespace Project1.Controllers
         public ActionResult index()
         {
             return View();
-        }
-        [HttpPost]
-        public ActionResult Index(Contacts m)
-        {
-            var item = mod.List(m);
-            return View(item);
-        }
+        }        
 
         //CREATE
         public ActionResult Create()
@@ -35,7 +29,6 @@ namespace Project1.Controllers
             m.newCon(m);
             return RedirectToAction("Users");
         }
-
 
         //EDIT
         public ActionResult Edit(int ID)
@@ -50,7 +43,6 @@ namespace Project1.Controllers
             return RedirectToAction("Users");
         }
 
-
         //DELETE
         public ActionResult Delete(int ID)
         {
@@ -63,7 +55,23 @@ namespace Project1.Controllers
         {
             mod.Delete(m);
             return RedirectToAction("Users");
-
         }
+
+        //Contact List
+        [HttpGet]   
+        public ActionResult Users()
+        {
+            return View(mod.List());
+        }
+
+        //PARTIAL VIEW "DATA"
+        public PartialViewResult data(string Search)
+        {
+            var item = mod.List(Search);
+            return PartialView(item);
+        }
+
+
+
     }
 }
