@@ -70,9 +70,7 @@ namespace Project1.Controllers
                 return RedirectToAction("Login");
             }                           
             return View();
-        }
-
-       
+        }    
         
 
 

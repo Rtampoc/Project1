@@ -87,9 +87,7 @@ namespace Project1.Models
             }
             return result;
 
-        }
-
-        
+        }     
 
          
          

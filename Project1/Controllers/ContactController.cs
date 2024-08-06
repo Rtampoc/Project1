@@ -26,7 +26,6 @@ namespace Project1.Controllers
         [HttpPost]
         public ActionResult Create(Contacts m)
         {
-
             m.newCon(m);
             return RedirectToAction("Users");
         }

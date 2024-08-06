@@ -65,7 +65,7 @@ namespace Project1.Models
             
         
 
-        private static string getNetworktype(string number)
+        private static string getNetworktype(string number)//For getting the Mobile Network via Mobile Prefix number
         {
             string result = null;
             var smart = new List<string> { "0928", "0951", "0998", "0999", "0939", "0919", "0920", "0921", "0918", "0947", "0949", "0908", "0929", "0961", "0945", "0953", "0954", "0955", "0956", "0965", "0966", "0967", "0975", "0980", "0994", "0817" };
