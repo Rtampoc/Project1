@@ -26,6 +26,7 @@ namespace Project1.Controllers
         [HttpPost]
         public ActionResult Create(Contacts m)
         {
+
             m.newCon(m);
             return RedirectToAction("Users");
         }
@@ -39,6 +40,7 @@ namespace Project1.Controllers
         [HttpPost]
         public ActionResult Edit(Contacts m)
         {
+            
             mod.Update(m);
             return RedirectToAction("Users");
         }
@@ -69,7 +71,7 @@ namespace Project1.Controllers
         {
             var item = mod.List(Search);
             return PartialView(item);
-        }
+        }        
 
 
 
