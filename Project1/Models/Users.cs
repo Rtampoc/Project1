@@ -43,7 +43,7 @@ namespace Project1.Models
         [Required]
         [DataType(DataType.EmailAddress)]
         public string email { get; set; }
-        
+       
 
         public List<Users> List()
         {
@@ -68,8 +68,7 @@ namespace Project1.Models
                 //p.Add("dateCreated", DateTime.Now);
             });
         }
-
-
+                
         
         public bool uLog(string uname, string pword)//For user login
         {

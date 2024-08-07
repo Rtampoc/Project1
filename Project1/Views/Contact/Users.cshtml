@@ -5,25 +5,30 @@
 }
 
 <h2>User Contacts</h2>
+
+
+
 <div class="row">
-    <div class="col">
-        <a href="@Url.Action("Create", "Contact") " class="btn btn-primary">New Record</a>
-    </div>
 
-    <div class="col">
-        @using (Ajax.BeginForm("data", "Contact", new AjaxOptions { OnSuccess = "success" }))
-        {
-            <div class="row">
-                <div class="col">
-                    <input class="form-control" name="Search" type="search" placeholder="Search" aria-label="Search ">
-                </div>
+        <div class="col">
+            <a href="@Url.Action("Create", "Contact") " class="btn btn-primary">New Record</a>
+        </div>
 
-                <div class="col">
-                    <button class="btn btn-primary" type="submit">Search</button>
+        <div class="col">
+            @using (Ajax.BeginForm("data", "Contact", new AjaxOptions { OnSuccess = "success" }))
+            {
+                <div class="row ">
+                    <div class="col">
+                        <input class="form-control" name="Search" type="search" placeholder="Search" aria-label="Search ">
+                    </div>
+
+                    <div class="col">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </div>
                 </div>
-            </div>
-        }
-    </div>
+            }
+        </div>
+
 </div>
    
 <div id="partialzone">

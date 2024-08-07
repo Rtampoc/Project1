@@ -43,7 +43,7 @@ namespace Project1.Models
             s.InsertNormal("tbl_proj_mobile", p =>
             {
                 p.Add("cholder", obj.cholder);
-                p.Add("network", getNetworktype(obj.contact));
+                p.Add("network", getNetworktype(obj.contact));//get network
                 p.Add("contact", obj.contact);
             });
         }
@@ -53,7 +53,7 @@ namespace Project1.Models
             s.Update("tbl_proj_mobile", obj.ID, p =>
             {
                 p.Add("cholder", obj.cholder);
-                p.Add("network", getNetworktype(obj.contact));
+                p.Add("network", getNetworktype(obj.contact));//get network
                 p.Add("contact", obj.contact);
             });
         }

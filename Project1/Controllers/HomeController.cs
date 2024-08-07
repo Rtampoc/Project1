@@ -45,8 +45,10 @@ namespace Project1.Controllers
             if (ModelState.IsValid)
             {
                 var user = new Users();
+                
                 if (user.uLog(m.uname, m.pword))
-                {                   
+                {
+                                              
                     return RedirectToAction("Users", "Contact");
                 }                
             }
@@ -64,8 +66,14 @@ namespace Project1.Controllers
         [HttpPost]
         public ActionResult Register(Users m)
         {
+            
             if (ModelState.IsValid)
             {
+                
+                /*if (true)
+                {
+
+                }*/
                 mod.Register(m);
                 return RedirectToAction("Login");
             }                           
