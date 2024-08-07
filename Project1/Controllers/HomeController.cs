@@ -35,7 +35,11 @@ namespace Project1.Controllers
 
         //LOGIN
         public ActionResult Login()            
-        {            
+        {
+            if (Session["uname"] != null)
+            {
+                RedirectToAction("");
+            }
             return View();
         }
         [HttpPost]
@@ -45,7 +49,9 @@ namespace Project1.Controllers
             if (ModelState.IsValid)
             {
                 var user = new Users();
-                
+
+                Session["uname"] = m.uname;
+
                 if (user.uLog(m.uname, m.pword))
                 {
                                               
@@ -70,10 +76,7 @@ namespace Project1.Controllers
             if (ModelState.IsValid)
             {
                 
-                /*if (true)
-                {
 
-                }*/
                 mod.Register(m);
                 return RedirectToAction("Login");
             }                           
