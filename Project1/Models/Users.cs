@@ -31,7 +31,7 @@ namespace Project1.Models
         public string fname { get; set; }
 
         [Display(Name = "Last name")]
-        [Required]
+        [Required]  
         public string lname { get; set; }
 
         [Display(Name = "Date of Birth")]
@@ -55,7 +55,23 @@ namespace Project1.Models
             return s.Query<Users>("SELECT * FROM tbl_proj_mobile WHERE CONCAT(fname,lname) LIKE @search", p => p.Add("@search", $"%{ Search }%"));
         }
 
-        public void Register(Users obj)//For Registration
+        //public void Register(Users obj)//For Registration
+        //{
+        //    s.InsertNormal("tbl_proj_user", p =>
+        //    {
+        //        p.Add("uname", obj.uname);
+        //        p.Add("pword", obj.pword);
+        //        p.Add("fname", obj.fname);
+        //        p.Add("lname", obj.lname);
+        //        p.Add("bday", obj.bday);
+        //        p.Add("email", obj.email);
+        //        //p.Add("dateCreated", DateTime.Now);
+        //    });
+
+            
+
+        //}
+        public bool Register(Users obj)//For Registration
         {
             s.InsertNormal("tbl_proj_user", p =>
             {
@@ -65,11 +81,19 @@ namespace Project1.Models
                 p.Add("lname", obj.lname);
                 p.Add("bday", obj.bday);
                 p.Add("email", obj.email);
-                //p.Add("dateCreated", DateTime.Now);
-            });
-        }
                 
-        
+            });
+
+            bool res = false;
+
+
+            return res;
+
+
+
+        }
+
+
         public bool uLog(string uname, string pword)//For user login
         {
             Users usr = s.Query<Users>("SELECT uname, pword FROM tbl_proj_user WHERE uname = @uname AND pword = @pword", p =>

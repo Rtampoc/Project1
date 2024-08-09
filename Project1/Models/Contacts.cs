@@ -84,7 +84,7 @@ namespace Project1.Models
 
             var smartPtpd = new List<string> { "0813", };
 
-            var networks = new Dictionary<string, List<string>> { { "Smart", smart }, { "Globe", globe }, { "TNT", tnt }, { "Sun", sun }, { "Dito", dito }, { "Gomo", gomo }, { "Globe Postpaid", globePtpd }, { "Smart Postpaid", smartPtpd } };
+            var networks = new Dictionary<string, List<string>> { { "Smart", smart }, { "Globe/TM", globe }, { "TNT", tnt }, { "Sun", sun }, { "Dito", dito }, { "Gomo", gomo }, { "Globe Postpaid", globePtpd }, { "Smart Postpaid", smartPtpd } };
 
             foreach (KeyValuePair<string, List<string>> d in networks)   
             {

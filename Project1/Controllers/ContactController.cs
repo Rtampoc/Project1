@@ -26,8 +26,16 @@ namespace Project1.Controllers
         [HttpPost]
         public ActionResult Create(Contacts m)
         {
+            //var existNumber = m.List().Any(x => x.contact == m.contact);//validation for existing contact number
+            //if (existNumber)
+            //{
+            //    ModelState.AddModelError("Contact", "Contact number is already exist.");
+            //    return View(m);
+            //}
+            //else { 
             m.newCon(m);
             return RedirectToAction("Users");
+            //}
         }
 
         //EDIT
@@ -62,6 +70,10 @@ namespace Project1.Controllers
         [HttpGet]   
         public ActionResult Users()
         {
+            if (Session["uname"] == null)
+            {
+                RedirectToAction("Login", "Home");
+            }
             return View(mod.List());
         }
 
@@ -70,7 +82,15 @@ namespace Project1.Controllers
         {
             var item = mod.List(Search);
             return PartialView(item);
-        }        
+        }  
+
+        //Logout
+        public ActionResult Logout()
+        {
+            int userid = (int) Session["id"];
+            Session.Abandon();
+            return RedirectToAction("Login", "Home");
+        }      
 
 
 

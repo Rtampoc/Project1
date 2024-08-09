@@ -2,13 +2,21 @@
 
 @{
     ViewBag.Title = "Users";
+    Layout = null;
+    if (Session["id"] == null)
+    {
+        Response.Redirect("~/Home/Login");
+    }
 }
 
 <h2>User Contacts</h2>
 
+<div>
+    <h4>welcome: @Session["uname"].ToString()</h4>
+    <a href="@Url.Action("Login", "Home")" class="btn btn-primary">Logout</a>
+</div>
 
-
-<div class="row">
+    <div class="row">
 
         <div class="col">
             <a href="@Url.Action("Create", "Contact") " class="btn btn-primary">New Record</a>
@@ -29,8 +37,15 @@
             }
         </div>
 
-</div>
-   
+    </div>
+
+
+
+
+
+
+
+  
 <div id="partialzone">
 
     @Html.Partial("data", Model)
