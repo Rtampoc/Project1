@@ -38,7 +38,7 @@ namespace Project1.Controllers
         {
             if (Session["uname"] != null)
             {
-                RedirectToAction("Users", "Contact", new { uname = Session["uname"].ToString() });
+               return RedirectToAction("Users", "Contact", new { uname = Session["uname"].ToString() });
             }
             return View();
             
@@ -50,7 +50,7 @@ namespace Project1.Controllers
             if (ModelState.IsValid)
             {
                 var user = new Users();
-                Session["id"] = m.ID;
+                //Session["id"] = m.ID;
                 Session["uname"] = m.uname;
 
                 if (user.uLog(m.uname, m.pword))

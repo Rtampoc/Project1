@@ -47,12 +47,12 @@ namespace Project1.Models
 
         public List<Users> List()
         {
-            return s.Query<Users>("SELECT * FROM tbl_proj_user");
+            return s.Query<Users>("SELECT * FROM tbl_proj_users");
         }
 
         public List<Users> List(string Search)//For Search
         {
-            return s.Query<Users>("SELECT * FROM tbl_proj_mobile WHERE CONCAT(fname,lname) LIKE @search", p => p.Add("@search", $"%{ Search }%"));
+            return s.Query<Users>("SELECT * FROM tbl_proj_users WHERE CONCAT(fname,lname) LIKE @search", p => p.Add("@search", $"%{ Search }%"));
         }
 
         //public void Register(Users obj)//For Registration
@@ -73,7 +73,7 @@ namespace Project1.Models
         //}
         public bool Register(Users obj)//For Registration
         {
-            s.InsertNormal("tbl_proj_user", p =>
+            s.InsertNormal("tbl_proj_users", p =>
             {
                 p.Add("uname", obj.uname);
                 p.Add("pword", obj.pword);
@@ -83,9 +83,13 @@ namespace Project1.Models
                 p.Add("email", obj.email);
                 
             });
-
+            var emailExist = List().Any(x => x.email == email);//validation for existing emails
             bool res = false;
-
+            if (emailExist)
+            {
+                
+                
+            }
 
             return res;
 
@@ -96,7 +100,7 @@ namespace Project1.Models
 
         public bool uLog(string uname, string pword)//For user login
         {
-            Users usr = s.Query<Users>("SELECT uname, pword FROM tbl_proj_user WHERE uname = @uname AND pword = @pword", p =>
+            Users usr = s.Query<Users>("SELECT uname, pword FROM tbl_proj_users WHERE uname = @uname AND pword = @pword", p =>
             {
                 p.Add("@uname", uname);
                 p.Add("@pword", pword);

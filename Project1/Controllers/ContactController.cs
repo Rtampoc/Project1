@@ -33,7 +33,7 @@ namespace Project1.Controllers
             //    return View(m);
             //}
             //else { 
-            m.newCon(m);
+            mod.newCon(m);
             return RedirectToAction("Users");
             //}
         }
@@ -72,7 +72,7 @@ namespace Project1.Controllers
         {
             if (Session["uname"] == null)
             {
-                RedirectToAction("Login", "Home");
+                return RedirectToAction("Login", "Home");
             }
             return View(mod.List());
         }
@@ -82,15 +82,17 @@ namespace Project1.Controllers
         {
             var item = mod.List(Search);
             return PartialView(item);
-        }  
+        }
 
         //Logout
         public ActionResult Logout()
         {
-            int userid = (int) Session["id"];
+            //int userid = (int)Session["id"];
             Session.Abandon();
+            Session.Clear();
             return RedirectToAction("Login", "Home");
-        }      
+
+        }
 
 
 

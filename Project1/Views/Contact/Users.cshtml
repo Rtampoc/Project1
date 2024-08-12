@@ -2,62 +2,64 @@
 
 @{
     ViewBag.Title = "Users";
-    Layout = null;
-    if (Session["id"] == null)
-    {
-        Response.Redirect("~/Home/Login");
-    }
+
+    //if (Session["id"] == null)
+    //{
+    //    Response.Redirect("~/Home/Login");
+    //}
 }
 
-<h2>User Contacts</h2>
-
-<div>
-    <h4>welcome: @Session["uname"].ToString()</h4>
-    <a href="@Url.Action("Login", "Home")" class="btn btn-primary">Logout</a>
-</div>
-
-    <div class="row">
-
-        <div class="col">
-            <a href="@Url.Action("Create", "Contact") " class="btn btn-primary">New Record</a>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            
+            <a class="navbar-brand" href="#">User Contacts</a>
         </div>
 
-        <div class="col">
-            @using (Ajax.BeginForm("data", "Contact", new AjaxOptions { OnSuccess = "success" }))
-            {
-                <div class="row ">
-                    <div class="col">
-                        <input class="form-control" name="Search" type="search" placeholder="Search" aria-label="Search ">
-                    </div>
+       
+            <form class="navbar-form navbar-left">
 
-                    <div class="col">
+                <a href="@Url.Action("Create", "Contact") " class="btn btn-primary">New Record</a>
+
+                @using (Ajax.BeginForm("data", "Contact", new AjaxOptions { OnSuccess = "success" }))
+                {
+
+                    <div class="form-group">
+                        <input class="form-control" name="Search" type="search" placeholder="Search">                        
+                    </div>
                         <button class="btn btn-primary" type="submit">Search</button>
-                    </div>
+                }
+            </form>
+
+            <ul class="nav navbar-nav navbar-right">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default">Welcome: @Session["uname"].ToString()</button>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("Login", "Home")" name="Logout">Logout</a></li>
+                    </ul>
                 </div>
-            }
-        </div>
+            </ul>
+        </div><!-- /.navbar-collapse -->  
+</nav>
 
+<div class="panel panel-default">
+    <div id="partialzone">
+        @Html.Partial("data", Model)
     </div>
-
-
-
-
-
-
-
-  
-<div id="partialzone">
-
-    @Html.Partial("data", Model)
-
 </div>
+
 
 @section scripts {
   <script>
      function success(d) {
-            $('#partialzone').html(d);
-        }
+         $('#partialzone').html(d);
 
+        }
   </script>
 }
 
