@@ -34,6 +34,7 @@ namespace Project1.Controllers
             //}
             //else { 
             mod.newCon(m);
+
             return RedirectToAction("Users");
             //}
         }
@@ -72,7 +73,7 @@ namespace Project1.Controllers
         {
             if (Session["uname"] == null)
             {
-                return RedirectToAction("Login", "Home");
+                return RedirectToAction("Login", "Home", new { area = "" });
             }
             return View(mod.List());
         }
@@ -87,11 +88,8 @@ namespace Project1.Controllers
         //Logout
         public ActionResult Logout()
         {
-            //int userid = (int)Session["id"];
             Session.Abandon();
-            Session.Clear();
-            return RedirectToAction("Login", "Home");
-
+            return RedirectToAction("Login", "Home", new { area = "" });
         }
 
 

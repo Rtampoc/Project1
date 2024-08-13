@@ -38,7 +38,7 @@ namespace Project1.Controllers
         {
             if (Session["uname"] != null)
             {
-               return RedirectToAction("Users", "Contact", new { uname = Session["uname"].ToString() });
+               return RedirectToAction("Users", "Contact", new { area = "" });
             }
             return View();
             
@@ -50,13 +50,11 @@ namespace Project1.Controllers
             if (ModelState.IsValid)
             {
                 var user = new Users();
-                //Session["id"] = m.ID;
                 Session["uname"] = m.uname;
 
                 if (user.uLog(m.uname, m.pword))
-                {
-                                              
-                    return RedirectToAction("Users", "Contact");
+                {                                              
+                    return RedirectToAction("Users", "Contact", new { area = "" });
                 }                
             }
             ModelState.AddModelError("", "Incorrect Username or Password");//error message for username and password
@@ -73,19 +71,14 @@ namespace Project1.Controllers
         [HttpPost]
         public ActionResult Register(Users m)
         {
-
-            //var emailExist = m.List().Any(x => x.email == m.email);//validation for existing emails
+                        
             if (ModelState.IsValid)
             {
-                //if (emailExist)
-                //{
-                //    ModelState.AddModelError("Email", "Email already exist.");
-                //    return View(m);
-                //}
-                //else { 
+                
                 mod.Register(m);
+                
                 return RedirectToAction("Login");
-                //}
+                
             }                           
             return View();
         }    

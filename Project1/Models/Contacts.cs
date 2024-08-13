@@ -38,14 +38,27 @@ namespace Project1.Models
             return s.Query<Contacts>("SELECT * FROM tbl_proj_mobile WHERE ID = @ID", p => p.Add("@ID", ID)).SingleOrDefault();
         }
 
-        public void newCon(Contacts obj)//For Create new contact
+        public bool newCon(Contacts obj)//For Create new contact
         {
-            s.InsertNormal("tbl_proj_mobile", p =>
+
+            var conExist = List().Exists(x => x.contact == obj.contact);//validation for existing emails
+            bool res;
+            if (!conExist)
             {
-                p.Add("cholder", obj.cholder);
-                p.Add("network", getNetworktype(obj.contact));//get network
-                p.Add("contact", obj.contact);
-            });
+                s.InsertNormal("tbl_proj_mobile", p =>
+                {
+                    p.Add("cholder", obj.cholder);
+                    p.Add("network", getNetworktype(obj.contact));//get network
+                    p.Add("contact", obj.contact);
+                });
+                res = true;
+            }
+            else
+            {
+                res = false;
+            }
+            return res;
+            
         }
 
         public void Update(Contacts obj)//For Update

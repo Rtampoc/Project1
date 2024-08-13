@@ -50,6 +50,11 @@ namespace Project1.Models
             return s.Query<Users>("SELECT * FROM tbl_proj_users");
         }
 
+        public List<Users> List()
+        {
+            return s.Query<Users>("SELECT email FROM tbl_proj_users");
+        }
+
         public List<Users> List(string Search)//For Search
         {
             return s.Query<Users>("SELECT * FROM tbl_proj_users WHERE CONCAT(fname,lname) LIKE @search", p => p.Add("@search", $"%{ Search }%"));
@@ -73,28 +78,28 @@ namespace Project1.Models
         //}
         public bool Register(Users obj)//For Registration
         {
-            s.InsertNormal("tbl_proj_users", p =>
-            {
-                p.Add("uname", obj.uname);
-                p.Add("pword", obj.pword);
-                p.Add("fname", obj.fname);
-                p.Add("lname", obj.lname);
-                p.Add("bday", obj.bday);
-                p.Add("email", obj.email);
-                
-            });
-            var emailExist = List().Any(x => x.email == email);//validation for existing emails
+            
+            var emailExist = List().Exists(x => x.email == obj.email);//validation for existing emails
             bool res = false;
-            if (emailExist)
+            if (!emailExist)
             {
-                
-                
+                s.InsertNormal("tbl_proj_users", p =>
+                {
+                    p.Add("uname", obj.uname);
+                    p.Add("pword", obj.pword);
+                    p.Add("fname", obj.fname);
+                    p.Add("lname", obj.lname);
+                    p.Add("bday", obj.bday);
+                    p.Add("email", obj.email);
+
+                });
+                res = true;
             }
-
+            else
+            {
+                res = false;
+            }
             return res;
-
-
-
         }
 
 
