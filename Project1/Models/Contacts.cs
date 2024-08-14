@@ -23,9 +23,14 @@ namespace Project1.Models
         [Required]
         public string contact { get; set; }
 
-        public List<Contacts> List()
+        public List<Contacts> List()//Contact List
         {
             return s.Query<Contacts>("SELECT * FROM tbl_proj_mobile");
+        }
+
+        public List<Contacts> findMobile(string contact)//existing contact count
+        {
+            return s.Query<Contacts>("SELECT COUNT(contact) FROM tbl_proj_mobile WHERE contact = @contact", p => p.Add("@contact", contact));
         }
 
         public List<Contacts> List(string Search)//For Search
@@ -33,7 +38,7 @@ namespace Project1.Models
             return s.Query<Contacts>("SELECT * FROM tbl_proj_mobile WHERE CONCAT(cholder,network) LIKE @search", p => p.Add("@search", $"%{ Search }%"));
         }
 
-        public Contacts Find(int ID)
+        public Contacts Find(int ID)//Find by ID
         {
             return s.Query<Contacts>("SELECT * FROM tbl_proj_mobile WHERE ID = @ID", p => p.Add("@ID", ID)).SingleOrDefault();
         }
@@ -41,9 +46,9 @@ namespace Project1.Models
         public bool newCon(Contacts obj)//For Create new contact
         {
 
-            var conExist = List().Exists(x => x.contact == obj.contact);//validation for existing emails
+            var conExist = findMobile(obj.contact);//validation for existing emails
             bool res;
-            if (!conExist)
+            if (conExist == null)
             {
                 s.InsertNormal("tbl_proj_mobile", p =>
                 {
@@ -112,6 +117,8 @@ namespace Project1.Models
             }
             return result;
         }
+
+
 
 
     }

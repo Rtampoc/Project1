@@ -26,17 +26,21 @@ namespace Project1.Controllers
         [HttpPost]
         public ActionResult Create(Contacts m)
         {
-            //var existNumber = m.List().Any(x => x.contact == m.contact);//validation for existing contact number
-            //if (existNumber)
-            //{
-            //    ModelState.AddModelError("Contact", "Contact number is already exist.");
-            //    return View(m);
-            //}
-            //else { 
-            mod.newCon(m);
+            if (ModelState.IsValid)
+            {
+                if (mod.newCon(m) == true)
+                {
+                    return RedirectToAction("Users", "Contact", new { area = "" });
+                }
+                else
+                {
+                    ModelState.AddModelError("Contact", "Contact number already exist.");
+                    return View(m);
+                }
 
-            return RedirectToAction("Users");
-            //}
+            }
+            return View(m);
+
         }
 
         //EDIT
@@ -50,7 +54,7 @@ namespace Project1.Controllers
         {
             
             mod.Update(m);
-            return RedirectToAction("Users");
+            return RedirectToAction("Users", "Contact", new { area = "" });
         }
 
         //DELETE
@@ -64,7 +68,7 @@ namespace Project1.Controllers
         public ActionResult Delete(Contacts m)
         {
             mod.Delete(m);
-            return RedirectToAction("Users");
+            return RedirectToAction("Users", "Contact", new { area = "" });
         }
 
         //Contact List

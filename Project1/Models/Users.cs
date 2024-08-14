@@ -45,14 +45,17 @@ namespace Project1.Models
         public string email { get; set; }
        
 
-        public List<Users> List()
+        public List<Users> List()//User List
         {
             return s.Query<Users>("SELECT * FROM tbl_proj_users");
         }
 
-        public List<Users> List()
+        public List<Users> findEmail(string email)//existing email count 
         {
-            return s.Query<Users>("SELECT email FROM tbl_proj_users");
+            return s.Query("SELECT COUNT(email) FROM tbl_proj_users WHERE email = @email", p => p.Add("@email", email)).foreach (var item in email)
+            {
+
+            };
         }
 
         public List<Users> List(string Search)//For Search
@@ -60,28 +63,13 @@ namespace Project1.Models
             return s.Query<Users>("SELECT * FROM tbl_proj_users WHERE CONCAT(fname,lname) LIKE @search", p => p.Add("@search", $"%{ Search }%"));
         }
 
-        //public void Register(Users obj)//For Registration
-        //{
-        //    s.InsertNormal("tbl_proj_user", p =>
-        //    {
-        //        p.Add("uname", obj.uname);
-        //        p.Add("pword", obj.pword);
-        //        p.Add("fname", obj.fname);
-        //        p.Add("lname", obj.lname);
-        //        p.Add("bday", obj.bday);
-        //        p.Add("email", obj.email);
-        //        //p.Add("dateCreated", DateTime.Now);
-        //    });
-
-            
-
-        //}
+        
         public bool Register(Users obj)//For Registration
         {
             
-            var emailExist = List().Exists(x => x.email == obj.email);//validation for existing emails
+            var emailExist = findEmail(obj.email);//validation for existing emails
             bool res = false;
-            if (!emailExist)
+            if (emailExist >= 1)
             {
                 s.InsertNormal("tbl_proj_users", p =>
                 {
@@ -100,6 +88,7 @@ namespace Project1.Models
                 res = false;
             }
             return res;
+
         }
 
 
@@ -112,7 +101,7 @@ namespace Project1.Models
             }).SingleOrDefault();
 
             bool result = false;
-            //function
+            //login function
             if (usr != null)
             {
                 result = true;

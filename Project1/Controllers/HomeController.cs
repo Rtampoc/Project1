@@ -74,13 +74,18 @@ namespace Project1.Controllers
                         
             if (ModelState.IsValid)
             {
-                
-                mod.Register(m);
-                
-                return RedirectToAction("Login");
-                
+                if (mod.Register(m) == true)
+                {
+                    return RedirectToAction("Login", "Home", new { area = "" });
+                }
+                else
+                {
+                    ModelState.AddModelError("Email", "Email already exist.");
+                    return View(m);
+                }             
+                               
             }                           
-            return View();
+            return View(m);
         }    
         
 
