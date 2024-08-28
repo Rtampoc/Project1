@@ -30,7 +30,7 @@ namespace Project1.Models
 
         public List<Contacts> findMobile(string contact)//existing contact count
         {
-            return s.Query<Contacts>("SELECT COUNT(contact) FROM tbl_proj_mobile WHERE contact = @contact", p => p.Add("@contact", contact));
+            return s.Query<Contacts>("SELECT contact FROM tbl_proj_mobile WHERE contact = @contact", p => p.Add("@contact", contact));
         }
 
         public List<Contacts> List(string Search)//For Search

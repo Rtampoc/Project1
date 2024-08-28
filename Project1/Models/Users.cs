@@ -52,10 +52,11 @@ namespace Project1.Models
 
         public List<Users> findEmail(string email)//existing email count 
         {
-            return s.Query("SELECT COUNT(email) FROM tbl_proj_users WHERE email = @email", p => p.Add("@email", email)).foreach (var item in email)
-            {
+            //return s.Query("SELECT COUNT(email) FROM tbl_proj_users WHERE email = @email", p => p.Add("@email", email)).foreach (var item in email)
+            //{
 
-            };
+            //};
+            return s.Query<Users>("SELECT email FROM tbl_proj_mobile WHERE email = @email", p => p.Add("@email", email));
         }
 
         public List<Users> List(string Search)//For Search
@@ -70,6 +71,7 @@ namespace Project1.Models
             var emailExist = findEmail(obj.email);//validation for existing emails
             bool res = false;
             if (emailExist >= 1)
+
             {
                 s.InsertNormal("tbl_proj_users", p =>
                 {
