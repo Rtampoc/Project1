@@ -70,7 +70,7 @@ namespace Project1.Models
             
             var emailExist = findEmail(obj.email);//validation for existing emails
             bool res = false;
-            if (emailExist >= 1)
+            if (emailExist == null)
 
             {
                 s.InsertNormal("tbl_proj_users", p =>
