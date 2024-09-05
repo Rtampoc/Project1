@@ -79,8 +79,7 @@ namespace Project1.Models
         public void Delete(Contacts obj)//For Delete
         {
             s.Query("DELETE FROM tbl_proj_mobile WHERE id = @id", p => p.Add("@ID", obj.ID)); 
-        }
-            
+        }           
         
 
         private static string getNetworktype(string number)//For getting the Mobile Network via Mobile Prefix number
@@ -118,11 +117,7 @@ namespace Project1.Models
             return result;
         }
 
-
-
-
-    }
-        
+    }        
 
 }
 
